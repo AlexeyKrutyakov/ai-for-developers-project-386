@@ -29,4 +29,5 @@ make dev         # фронтенд (5173) + бэкенд (3000) паралле�
 - **shadcn-компоненты не форматировать**: они в `.prettierignore`, правки вручную нарушают `make lint`
 - **Conventional Commits обязательны**: commitlint проверяет каждый коммит (husky локально + CI). Формат нужен release-please — он открывает Release PR после мёрджа в `main`, мёрдж PR создаёт тег и GitHub Release
 - **TypeScript**: фронтенд на v6 (`baseUrl` deprecated — не добавлять), бэкенд на v5
+- **Regenerate `package-lock.json` only with npm 12+**: npm 11 не пишет в lockfile платформенные нативные биндинги (rolldown у Vite 8), и `npm ci` в Linux-CI падает с "Cannot find native binding" (npm bug #4828). Симптом — в lockfile есть только `@rolldown/binding-win32-*`. npm 12+: `npm i -g npm@latest`, удалить lockfile и `node_modules`, `npm install`
 - `.github/workflows/hexlet-check.yml` не трогать: переименование или удаление ломает автотесты Хекслета
